@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Prototipe AI Rekrutmen Multi-Layer</title>
+  <style>
+    body { font-family: Arial; margin: 20px; background: #f4f4f4; }
+    h2 { background: #0077cc; color: white; padding: 10px; }
+    .section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 0 5px #ccc; }
+    button { padding: 10px 20px; background: #0077cc; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    button:hover { background: #005fa3; }
+  </style>
+</head>
+<body>
+
+  <div class="section">
+    <h2>1. Upload CV</h2>
+    <form>
+      <input type="file" accept=".pdf,.doc,.docx" />
+      <button type="button" onclick="alert('CV diterima dan sedang diproses oleh AI Layer 1')">Unggah CV</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <h2>2. CV Scanning & Rekomendasi AI</h2>
+    <p>AI sedang menganalisis isi CV...</p>
+    <button onclick="alert('Skor AI: 86 - Direkomendasikan untuk wawancara AI')">Lihat Skor AI</button>
+  </div>
+
+  <div class="section">
+    <h2>3. Wawancara Voice AI</h2>
+    <p>Simulasi pertanyaan: "Ceritakan pengalaman kerja Anda yang paling menantang."</p>
+    <button onclick="alert('Wawancara AI selesai. Kandidat dinilai memiliki komunikasi yang baik.')">Selesaikan Wawancara</button>
+  </div>
+
+  <div class="section">
+    <h2>4. Dasbor HR</h2>
+    <table border="1" cellpadding="10">
+      <tr><th>Nama</th><th>Skor AI</th><th>Status</th><th>Aksi</th></tr>
+      <tr><td>Andi Wijaya</td><td>86</td><td>Siap Wawancara</td><td><button>Jadwalkan HR</button></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>5. Output & Integrasi</h2>
+    <p>Data kandidat tersimpan dalam sistem terpusat dan diteruskan ke:</p>
+    <ul>
+      <li>LinkedIn Talent Hub</li>
+      <li>Jobstreet Corporate ATS</li>
+      <li>Sistem Lintasarta</li>
+    </ul>
+  </div>
+
+</body>
+</html>
+
