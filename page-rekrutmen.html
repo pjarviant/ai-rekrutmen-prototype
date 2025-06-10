@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Halaman Rekrutmen - AI Rekrutmen</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      color: #1d1d1d;
+    }
+
+    /* Header & Topbar */
+    .topbar {
+      background: #0073c6;
+      color: white;
+      font-size: 13px;
+      padding: 8px 10%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .topbar span {
+      margin-right: 20px;
+    }
+
+    header {
+      background: white;
+      padding: 20px 10%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #0073c6;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background: none;
+      transition: 0.3s;
+      color: #0073c6;
+    }
+
+    .tabs button.active {
+      border-bottom: 4px solid #0073c6;
+      background-color: #f3f8fc;
+    }
+
+    /* Content Box */
+    .content {
+      padding: 30px;
+      background: white;
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h2 {
+      color: #0073c6;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      border: 1px solid #d0d7df;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    table th {
+      background: #f0f3f6;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #0073c6;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #005ea6;
+    }
+
+    input[type="file"] {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Contact -->
+  <div class="topbar">
+    <div>
+      <span>📧 info@lintasarta.co.id</span>
+      <span>📞 +6221 230 2345</span>
+    </div>
+    <div><strong>AI Rekrutmen Laskar</strong></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>Dashboard Rekrutmen Calon Laskar Lintasarta</h1>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(0)">📄 Scanning Kandidat</button>
+    <button class="tab-btn" onclick="showTab(1)">🧠 Fundamental Interview</button>
+    <button class="tab-btn" onclick="showTab(2)">🤝 User Interview</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="content" id="tab0">
+    <h2>Layer 1: Scanning Calon Kandidat</h2>
+    <p>Unggah CV pelamar dan analisis awal AI untuk seleksi otomatis.</p>
+    <input type="file" accept=".pdf,.doc,.docx">
+    <button class="btn" onclick="alert('CV sedang dianalisis oleh AI...')">Analisis CV</button>
+    <table>
+      <tr><th>Nama</th><th>Skor AI</th><th>Status</th></tr>
+      <tr><td>Andi Wijaya</td><td>86</td><td>Lolos ke Interview AI</td></tr>
+    </table>
+  </div>
+
+  <div class="content hidden" id="tab1">
+    <h2>Layer 2: Fundamental Interview</h2>
+    <p>Simulasikan wawancara suara berbasis AI.</p>
+    <button class="btn" onclick="alert('Wawancara AI dimulai...\nPertanyaan: Jelaskan kekuatan utama Anda')">Mulai Wawancara AI</button>
+    <p><em>Wawancara akan direkam dan dirangkum otomatis oleh sistem AI.</em></p>
+  </div>
+
+  <div class="content hidden" id="tab2">
+    <h2>Layer 3: User Interview (HR)</h2>
+    <p>Jadwalkan wawancara teknis dan buat catatan evaluasi kandidat.</p>
+    <table>
+      <tr><th>Nama</th><th>Status</th><th>Aksi</th></tr>
+      <tr>
+        <td>Andi Wijaya</td>
+        <td>Siap Dijadwalkan</td>
+        <td><button class="btn">Jadwalkan</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function showTab(index) {
+      const contents = document.querySelectorAll('.content');
+      const buttons = document.querySelectorAll('.tab-btn');
+      contents.forEach((el, i) => {
+        el.classList.toggle('hidden', i !== index);
+        buttons[i].classList.toggle('active', i === index);
+      });
+    }
+  </script>
+
+</body>
+</html>
