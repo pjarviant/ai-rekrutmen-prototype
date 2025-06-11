@@ -42,7 +42,6 @@
       justify-content: center;
       background: #ffffff;
       border-bottom: 1px solid #e0e0e0;
-      padding: 0;
     }
 
     .tabs button {
@@ -128,9 +127,9 @@
     iframe.notion-embed {
       width: 100%;
       height: 600px;
-      border: none;
-      border-radius: 8px;
       margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -160,18 +159,20 @@
     <p>Unggah CV pelamar dan analisis awal AI untuk seleksi otomatis.</p>
 
     <input type="file" accept=".pdf,.doc,.docx">
-    <button class="btn" onclick="analyzeCV()">Analisis Kandidat</button>
+    <button class="btn" onclick="analyzeCV()">Analisis CV</button>
 
     <div style="margin-top: 10px;">
       <label for="promptInput"><strong>Masukkan deskripsi kandidat yang dicari:</strong></label>
       <textarea id="promptInput" rows="3" placeholder="Contoh: Kandidat dengan pengalaman minimal 3 tahun di bidang jaringan dan kemampuan komunikasi yang baik."></textarea>
 
-      <!-- Embed Notion Form -->
-      <iframe 
+      <!-- Notion Form (hidden until analyzeCV triggered) -->
+      <iframe
+        id="notionForm"
         class="notion-embed"
         src="https://languid-asphalt-14d.notion.site/ebd/20fcd6bc3c7f8172aba3e3f00e05aba9?v=20fcd6bc3c7f811396de000c8aaf7ccc"
         loading="lazy"
-        allowfullscreen>
+        allowfullscreen
+        style="display: none;">
       </iframe>
     </div>
 
@@ -187,9 +188,7 @@
   <div class="content hidden" id="tab1">
     <h2>Layer 2: Fundamental Interview</h2>
     <table id="interviewTable">
-      <thead>
-        <tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr>
-      </thead>
+      <thead><tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr></thead>
       <tbody></tbody>
     </table>
     <p>Simulasikan wawancara suara berbasis AI.</p>
@@ -227,6 +226,7 @@
       const prompt = document.getElementById('promptInput').value.trim();
       const resultBody = document.querySelector('#resultTable tbody');
       const interviewBody = document.querySelector('#interviewTable tbody');
+      const notionForm = document.getElementById('notionForm');
 
       resultBody.innerHTML = "";
       interviewBody.innerHTML = "";
@@ -236,6 +236,8 @@
         alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
         return;
       }
+
+      notionForm.style.display = "block"; // ✅ Tampilkan form Notion
 
       const mockResults = [
         { name: "Andi Wijaya", score: 86, job: "Network Engineer", status: "Lolos ke Tahap 2" },
