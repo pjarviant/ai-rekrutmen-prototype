@@ -178,6 +178,15 @@
     <p>Simulasikan wawancara suara berbasis AI.</p>
     <button class="btn" onclick="alert('Wawancara AI dimulai...\nPertanyaan: Jelaskan kekuatan utama Anda')">Mulai Wawancara AI</button>
     <p><em>Wawancara akan direkam dan dirangkum otomatis oleh sistem AI.</em></p>
+
+    <table id="interviewTable">
+    <thead>
+    <tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr>
+    </thead>
+    <tbody>
+    <!-- Diisi oleh JS -->
+    </tbody>
+</table>
   </div>
 
   <!-- Layer 3 -->
@@ -204,35 +213,55 @@
       });
     }
 
-    function analyzeCV() {
-      const prompt = document.getElementById('promptInput').value.trim();
-      const resultBody = document.querySelector('#resultTable tbody');
+   let selectedCandidates = []; // untuk kandidat lolos ke Layer 2
 
-      resultBody.innerHTML = ""; // Clear previous results
+   function analyzeCV() {
+     const prompt = document.getElementById('promptInput').value.trim();
+     const resultBody = document.querySelector('#resultTable tbody');
+     const interviewBody = document.querySelector('#interviewTable tbody');
 
-      if (!prompt) {
-        alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
-        return;
-      }
+     resultBody.innerHTML = "";
+     interviewBody.innerHTML = "";
+     selectedCandidates = [];
 
-      // Simulasi respons dari AI (mock data)
-      const mockResults = [
-        { name: "Andi Wijaya", score: 86, status: "Lolos ke Interview AI" },
-        { name: "Sari Utami", score: 91, status: "Lolos ke Interview AI" },
-        { name: "Budi Raharjo", score: 79, status: "Pertimbangan Lanjut" },
-      ];
+     if (!prompt) {
+       alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
+       return;
+     }
 
-      mockResults.forEach(result => {
-        const row = `<tr>
-          <td>${result.name}</td>
-          <td>${result.score}</td>
-          <td>${result.status}</td>
-        </tr>`;
-        resultBody.innerHTML += row;
-      });
+     // Simulasi data
+     const mockResults = [
+       { name: "Andi Wijaya", score: 86, job: "Network Engineer", status: "Lolos ke Interview AI" },
+       { name: "Sari Utami", score: 91, job: "Cloud Administrator", status: "Lolos ke Interview AI" },
+       { name: "Budi Raharjo", score: 79, job: "IT Support", status: "Pertimbangan Lanjut" },
+     ];
 
-      alert("Prompt berhasil dikirim dan dianalisis oleh AI:\n\n" + prompt);
-    }
+     mockResults.forEach(result => {
+       const row = `<tr>
+         <td>${result.name}</td>
+         <td>${result.score}</td>
+         <td>${result.job}</td>
+         <td>${result.status}</td>
+       </tr>`;
+       resultBody.innerHTML += row;
+
+       if (result.status === "Lolos ke Interview AI") {
+         selectedCandidates.push(result);
+        }
+     });
+
+     // Tampilkan juga di Layer 2
+     selectedCandidates.forEach(c => {
+       const row = `<tr>
+         <td>${c.name}</td>
+         <td>${c.score}</td>
+          <td>${c.job}</td>
+       </tr>`;
+       interviewBody.innerHTML += row;
+     });
+
+     alert("Prompt berhasil dianalisis:\n\n" + prompt);
+   }
   </script>
 
 </body>
