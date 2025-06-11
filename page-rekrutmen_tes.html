@@ -150,11 +150,17 @@
   <div class="content" id="tab0">
     <h2>Layer 1: Scanning Calon Kandidat</h2>
     <p>Unggah CV pelamar dan analisis awal AI untuk seleksi otomatis.</p>
+  <!-- Baris input file -->
     <input type="file" accept=".pdf,.doc,.docx">
+  
+  <!-- Tombol Analisis CV -->
     <button class="btn" onclick="analyzeCV()">Analisis CV</button>
 
+  <!-- Kotak prompt input deskripsi -->
+   <div style="margin-top: 10px;">
     <label for="promptInput"><strong>Masukkan deskripsi kandidat yang dicari:</strong></label>
     <textarea id="promptInput" rows="3" placeholder="Contoh: Kandidat dengan pengalaman minimal 3 tahun di bidang jaringan dan kemampuan komunikasi yang baik."></textarea>
+   </div>
 
     <table id="resultTable">
       <thead>
