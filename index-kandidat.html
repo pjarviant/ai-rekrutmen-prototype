@@ -20,16 +20,26 @@
       box-shadow: 0 1px 5px rgba(0,0,0,0.1);
     }
 
-    /* Navbar */
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
     nav a {
-      margin: 0 10px;
       font-size: 14px;
       text-decoration: none;
       color: #003366;
     }
 
     .content {
-      padding: 40px 60px 100px; /* padding bawah agar jauh dari footer */
+      padding: 40px 60px 100px;
     }
 
     .filters {
@@ -56,7 +66,7 @@
     .job-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px; /* jarak antar kolom & baris */
+      gap: 40px;
       margin-top: 30px;
     }
 
@@ -67,7 +77,7 @@
       border: 1px solid #ddd;
       transition: background 0.2s, color 0.2s;
       cursor: pointer;
-      min-height: 120px; /* fix tinggi minimum */
+      min-height: 120px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -117,10 +127,13 @@
     .modal {
       background: white;
       width: 90%;
-      max-width: 500px;
+      max-width: 650px;
       border-radius: 6px;
       padding: 20px;
       position: relative;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .modal h2 {
@@ -134,9 +147,10 @@
       margin-bottom: 10px;
     }
 
-    .modal .desc {
-      font-size: 14px;
-      margin-bottom: 20px;
+    .modal iframe {
+      flex-grow: 1;
+      border: none;
+      width: 100%;
     }
 
     .modal .close-btn {
@@ -152,21 +166,6 @@
 
     .modal .close-btn:hover {
       color: #333;
-    }
-
-    .modal button {
-      background: #0073c6;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .modal button:hover {
-      background: #005ea6;
     }
 
     @media (max-width: 992px) {
@@ -185,8 +184,8 @@
 <body>
 
   <header>
+    <h1>Lintasarta AI Recruiter</h1>
     <nav>
-      <h1>Lintasarta AI Recruiter</h1>
       <a href="#">Beranda</a>
       <a href="#">Tentang Kami</a>
       <a href="#">Kontak</a>
@@ -200,9 +199,7 @@
       <button>Search</button>
     </div>
 
-    <div class="job-grid" id="jobList">
-      <!-- Job cards ditambahkan via JavaScript -->
-    </div>
+    <div class="job-grid" id="jobList"></div>
   </div>
 
   <!-- Modal -->
@@ -211,8 +208,7 @@
       <button class="close-btn" onclick="closeModal()">×</button>
       <h2 id="modalTitle">Job Title</h2>
       <div class="meta" id="modalMeta">Location • Date</div>
-      <div class="desc" id="modalDesc">Job Description Here</div>
-      <button onclick="alert('Terima kasih, lamaran kamu telah diterima!')">Apply Now</button>
+      <iframe id="n8nForm" src="https://n8n.cloudeka.ai/form/0b2ad1e6-4867-4f4e-9eae-141b16266a2a"></iframe>
     </div>
   </div>
 
@@ -224,19 +220,18 @@
 
   <script>
     const jobs = [
-      { title: "PROJECT MANAGER – CLOUD DELIVERY", meta: "Indonesia • Posting 11/05/2024", desc: "Supporting the operational team and guarantee that the system information are able to operate properly and meet the service-level agreement (SLA)." },
-      { title: "L2 CLOUD – CLOUD DELIVERY", meta: "Indonesia • Posting 07/02/2024", desc: "Understanding related virtualization." },
-      { title: "REGIONAL FINANCE ANALYST", meta: "Indonesia • Posting 04/23/2024", desc: "Analyze and support regional financial operations." },
-      { title: "SENIOR OFFICER – IT OUTSOURCING", meta: "Indonesia • Posting 04/02/2024", desc: "Lead IT project implementations and vendor engagements." },
-      { title: "FINANCIAL PLANNING OFFICER", meta: "Indonesia • Posting 10/26/2023", desc: "Coordinate planning, budgeting and controlling processes." },
-      { title: "PROCUREMENT OFFICER", meta: "Indonesia • Posting 10/26/2023", desc: "Manage procurement activities, cost control and vendor relations." },
+      { title: "PROJECT MANAGER – CLOUD DELIVERY", meta: "Indonesia • Posting 11/05/2024" },
+      { title: "L2 CLOUD – CLOUD DELIVERY", meta: "Indonesia • Posting 07/02/2024" },
+      { title: "REGIONAL FINANCE ANALYST", meta: "Indonesia • Posting 04/23/2024" },
+      { title: "SENIOR OFFICER – IT OUTSOURCING", meta: "Indonesia • Posting 04/02/2024" },
+      { title: "FINANCIAL PLANNING OFFICER", meta: "Indonesia • Posting 10/26/2023" },
+      { title: "PROCUREMENT OFFICER", meta: "Indonesia • Posting 10/26/2023" },
     ];
 
     const jobList = document.getElementById('jobList');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modalTitle = document.getElementById('modalTitle');
     const modalMeta = document.getElementById('modalMeta');
-    const modalDesc = document.getElementById('modalDesc');
 
     jobs.forEach((job, idx) => {
       const div = document.createElement('div');
@@ -250,7 +245,6 @@
       const job = jobs[index];
       modalTitle.textContent = job.title;
       modalMeta.textContent = job.meta;
-      modalDesc.textContent = job.desc;
       modalBackdrop.style.display = 'flex';
     }
 
