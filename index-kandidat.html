@@ -182,6 +182,22 @@
       display: inline-block;
       margin-top: 10px;
     }
+  
+    /* Contoh styling agar iframe responsif */
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 75%; /* rasio tinggi 4:3, sesuaikan jika perlu */
+      height: 0;
+      overflow: hidden;
+    }
+    .iframe-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   </style>
 </head>
 <body>
@@ -235,6 +251,15 @@
   <!-- Recruitment Button -->
     <section class="recruit-container">
       <div class="recruit-section">
+      <h1>Form Integrasi n8n</h1>
+
+      <div class="iframe-container">
+        <iframe
+          src="https://n8n.cloudeka.ai/form/0b2ad1e6-4867-4f4e-9eae-141b16266a2a"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
         <a href="page-rekrutmen.html" class="can">Lamar Sekarang</a> 
       </div>
     </section>
