@@ -124,6 +124,14 @@
       margin-top: 10px;
       margin-bottom: 20px;
     }
+
+    iframe.notion-embed {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -150,25 +158,28 @@
   <div class="content" id="tab0">
     <h2>Layer 1: Scanning Calon Kandidat</h2>
     <p>Unggah CV pelamar dan analisis awal AI untuk seleksi otomatis.</p>
-  <!-- Baris input file -->
+
     <input type="file" accept=".pdf,.doc,.docx">
-  
-  <!-- Tombol Analisis CV -->
     <button class="btn" onclick="analyzeCV()">Analisis CV</button>
 
-  <!-- Kotak prompt input deskripsi -->
-   <div style="margin-top: 10px;">
-    <label for="promptInput"><strong>Masukkan deskripsi kandidat yang dicari:</strong></label>
-    <textarea id="promptInput" rows="3" placeholder="Contoh: Kandidat dengan pengalaman minimal 3 tahun di bidang jaringan dan kemampuan komunikasi yang baik."></textarea>
-   </div>
+    <div style="margin-top: 10px;">
+      <label for="promptInput"><strong>Masukkan deskripsi kandidat yang dicari:</strong></label>
+      <textarea id="promptInput" rows="3" placeholder="Contoh: Kandidat dengan pengalaman minimal 3 tahun di bidang jaringan dan kemampuan komunikasi yang baik."></textarea>
+
+      <!-- Embed Notion Form -->
+      <iframe 
+        class="notion-embed"
+        src="https://languid-asphalt-14d.notion.site/ebd/20fcd6bc3c7f8172aba3e3f00e05aba9?v=20fcd6bc3c7f811396de000c8aaf7ccc"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
 
     <table id="resultTable">
       <thead>
         <tr><th>Nama</th><th>Skor (Presentasi)</th><th>Job Posisi</th><th>Status</th></tr>
       </thead>
-      <tbody>
-        <!-- Data hasil simulasi akan ditampilkan di sini -->
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
@@ -176,18 +187,14 @@
   <div class="content hidden" id="tab1">
     <h2>Layer 2: Fundamental Interview</h2>
     <table id="interviewTable">
-    <thead>
-    <tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr>
-    </thead>
-    <tbody>
-    <!-- Diisi oleh JS -->
-    </tbody>
+      <thead>
+        <tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr>
+      </thead>
+      <tbody></tbody>
     </table>
-
     <p>Simulasikan wawancara suara berbasis AI.</p>
     <button class="btn" onclick="alert('Wawancara AI dimulai...\nPertanyaan: Jelaskan kekuatan utama Anda')">Mulai Wawancara AI</button>
     <p><em>Wawancara akan direkam dan dirangkum otomatis oleh sistem AI.</em></p>
-
   </div>
 
   <!-- Layer 3 -->
@@ -214,55 +221,53 @@
       });
     }
 
-   let selectedCandidates = []; // untuk kandidat lolos ke Layer 2
+    let selectedCandidates = [];
 
-   function analyzeCV() {
-     const prompt = document.getElementById('promptInput').value.trim();
-     const resultBody = document.querySelector('#resultTable tbody');
-     const interviewBody = document.querySelector('#interviewTable tbody');
+    function analyzeCV() {
+      const prompt = document.getElementById('promptInput').value.trim();
+      const resultBody = document.querySelector('#resultTable tbody');
+      const interviewBody = document.querySelector('#interviewTable tbody');
 
-     resultBody.innerHTML = "";
-     interviewBody.innerHTML = "";
-     selectedCandidates = [];
+      resultBody.innerHTML = "";
+      interviewBody.innerHTML = "";
+      selectedCandidates = [];
 
-     if (!prompt) {
-       alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
-       return;
-     }
+      if (!prompt) {
+        alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
+        return;
+      }
 
-     // Simulasi data
-     const mockResults = [
-       { name: "Andi Wijaya", score: 86, job: "Network Engineer", status: "Lolos ke Tahap 2" },
-       { name: "Sari Utami", score: 91, job: "Cloud Administrator", status: "Lolos ke Tahap 2" },
-       { name: "Budi Raharjo", score: 79, job: "IT Support", status: "Pertimbangan Lanjut" },
-     ];
+      const mockResults = [
+        { name: "Andi Wijaya", score: 86, job: "Network Engineer", status: "Lolos ke Tahap 2" },
+        { name: "Sari Utami", score: 91, job: "Cloud Administrator", status: "Lolos ke Tahap 2" },
+        { name: "Budi Raharjo", score: 79, job: "IT Support", status: "Pertimbangan Lanjut" },
+      ];
 
-     mockResults.forEach(result => {
-       const row = `<tr>
-         <td>${result.name}</td>
-         <td>${result.score}</td>
-         <td>${result.job}</td>
-         <td>${result.status}</td>
-       </tr>`;
-       resultBody.innerHTML += row;
+      mockResults.forEach(result => {
+        const row = `<tr>
+          <td>${result.name}</td>
+          <td>${result.score}</td>
+          <td>${result.job}</td>
+          <td>${result.status}</td>
+        </tr>`;
+        resultBody.innerHTML += row;
 
-       if (result.status === "Lolos ke Interview AI") {
-         selectedCandidates.push(result);
+        if (result.status === "Lolos ke Tahap 2") {
+          selectedCandidates.push(result);
         }
-     });
+      });
 
-     // Tampilkan juga di Layer 2
-     selectedCandidates.forEach(c => {
-       const row = `<tr>
-         <td>${c.name}</td>
-         <td>${c.score}</td>
+      selectedCandidates.forEach(c => {
+        const row = `<tr>
+          <td>${c.name}</td>
+          <td>${c.score}</td>
           <td>${c.job}</td>
-       </tr>`;
-       interviewBody.innerHTML += row;
-     });
+        </tr>`;
+        interviewBody.innerHTML += row;
+      });
 
-     alert("Prompt berhasil dianalisis:\n\n" + prompt);
-   }
+      alert("Prompt berhasil dianalisis:\n\n" + prompt);
+    }
   </script>
 
 </body>
