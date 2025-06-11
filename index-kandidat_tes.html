@@ -28,7 +28,7 @@
     }
 
     .content {
-      padding: 40px 60px;
+      padding: 40px 60px 80px; /* padding bawah ditambah agar jauh dari footer */
     }
 
     .filters {
@@ -54,8 +54,8 @@
 
     .job-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr); /* Dikunci jadi 3 kolom */
+      gap: 30px; /* jarak antar kolom dan baris */
       margin-top: 30px;
     }
 
@@ -93,7 +93,7 @@
 
     .footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px 40px;
       background: #fff;
       font-size: 13px;
       color: #555;
@@ -164,6 +164,19 @@
     .modal button:hover {
       background: #005ea6;
     }
+
+    /* Responsif jika layar lebih kecil */
+    @media (max-width: 992px) {
+      .job-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .job-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -187,7 +200,7 @@
     </div>
 
     <div class="job-grid" id="jobList">
-      <!-- Job cards added by JS -->
+      <!-- Job cards by JS -->
     </div>
   </div>
 
