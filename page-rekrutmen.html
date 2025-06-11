@@ -12,7 +12,6 @@
       color: #1d1d1d;
     }
 
-    /* Header & Topbar */
     .topbar {
       background: #0073c6;
       color: white;
@@ -38,7 +37,6 @@
       color: #0073c6;
     }
 
-    /* Tabs */
     .tabs {
       display: flex;
       justify-content: center;
@@ -64,7 +62,6 @@
       background-color: #f3f8fc;
     }
 
-    /* Content Box */
     .content {
       padding: 30px;
       background: white;
@@ -83,7 +80,6 @@
       color: #0073c6;
     }
 
-    /* Table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -101,7 +97,6 @@
       background: #f0f3f6;
     }
 
-    /* Buttons */
     .btn {
       background: #0073c6;
       color: white;
@@ -110,6 +105,7 @@
       font-weight: bold;
       border: none;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     .btn:hover {
@@ -119,11 +115,19 @@
     input[type="file"] {
       margin: 10px 0;
     }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Contact -->
   <div class="topbar">
     <div>
       <span>📧 info@lintasarta.co.id</span>
@@ -132,37 +136,61 @@
     <div><strong>AI Rekrutmen Laskar</strong></div>
   </div>
 
-  <!-- Header -->
   <header>
     <h1>Dashboard Rekrutmen Calon Laskar Lintasarta</h1>
   </header>
 
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab(0)">📄 Scanning Kandidat</button>
     <button class="tab-btn" onclick="showTab(1)">🧠 Fundamental Interview</button>
     <button class="tab-btn" onclick="showTab(2)">🤝 User Interview</button>
   </div>
 
-  <!-- Tab Content -->
+  <!-- Layer 1 -->
   <div class="content" id="tab0">
     <h2>Layer 1: Scanning Calon Kandidat</h2>
     <p>Unggah CV pelamar dan analisis awal AI untuk seleksi otomatis.</p>
+  <!-- Baris input file -->
     <input type="file" accept=".pdf,.doc,.docx">
-    <button class="btn" onclick="alert('CV sedang dianalisis oleh AI...')">Analisis CV</button>
-    <table>
-      <tr><th>Nama</th><th>Skor AI</th><th>Status</th></tr>
-      <tr><td>Andi Wijaya</td><td>86</td><td>Lolos ke Interview AI</td></tr>
+  
+  <!-- Tombol Analisis CV -->
+    <button class="btn" onclick="analyzeCV()">Analisis CV</button>
+
+  <!-- Kotak prompt input deskripsi -->
+   <div style="margin-top: 10px;">
+    <label for="promptInput"><strong>Masukkan deskripsi kandidat yang dicari:</strong></label>
+    <textarea id="promptInput" rows="3" placeholder="Contoh: Kandidat dengan pengalaman minimal 3 tahun di bidang jaringan dan kemampuan komunikasi yang baik."></textarea>
+   </div>
+
+    <table id="resultTable">
+      <thead>
+        <tr><th>Nama</th><th>Skor (Presentasi)</th><th>Job Posisi</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <!-- Data hasil simulasi akan ditampilkan di sini -->
+      </tbody>
     </table>
   </div>
 
+  <!-- Layer 2 -->
   <div class="content hidden" id="tab1">
     <h2>Layer 2: Fundamental Interview</h2>
+    <table id="interviewTable">
+    <thead>
+    <tr><th>Nama</th><th>Skor</th><th>Job Posisi</th></tr>
+    </thead>
+    <tbody>
+    <!-- Diisi oleh JS -->
+    </tbody>
+    </table>
+
     <p>Simulasikan wawancara suara berbasis AI.</p>
     <button class="btn" onclick="alert('Wawancara AI dimulai...\nPertanyaan: Jelaskan kekuatan utama Anda')">Mulai Wawancara AI</button>
     <p><em>Wawancara akan direkam dan dirangkum otomatis oleh sistem AI.</em></p>
+
   </div>
 
+  <!-- Layer 3 -->
   <div class="content hidden" id="tab2">
     <h2>Layer 3: User Interview (HR)</h2>
     <p>Jadwalkan wawancara teknis dan buat catatan evaluasi kandidat.</p>
@@ -185,6 +213,56 @@
         buttons[i].classList.toggle('active', i === index);
       });
     }
+
+   let selectedCandidates = []; // untuk kandidat lolos ke Layer 2
+
+   function analyzeCV() {
+     const prompt = document.getElementById('promptInput').value.trim();
+     const resultBody = document.querySelector('#resultTable tbody');
+     const interviewBody = document.querySelector('#interviewTable tbody');
+
+     resultBody.innerHTML = "";
+     interviewBody.innerHTML = "";
+     selectedCandidates = [];
+
+     if (!prompt) {
+       alert("Harap isi prompt deskripsi kandidat terlebih dahulu.");
+       return;
+     }
+
+     // Simulasi data
+     const mockResults = [
+       { name: "Andi Wijaya", score: 86, job: "Network Engineer", status: "Lolos ke Tahap 2" },
+       { name: "Sari Utami", score: 91, job: "Cloud Administrator", status: "Lolos ke Tahap 2" },
+       { name: "Budi Raharjo", score: 79, job: "IT Support", status: "Pertimbangan Lanjut" },
+     ];
+
+     mockResults.forEach(result => {
+       const row = `<tr>
+         <td>${result.name}</td>
+         <td>${result.score}</td>
+         <td>${result.job}</td>
+         <td>${result.status}</td>
+       </tr>`;
+       resultBody.innerHTML += row;
+
+       if (result.status === "Lolos ke Interview AI") {
+         selectedCandidates.push(result);
+        }
+     });
+
+     // Tampilkan juga di Layer 2
+     selectedCandidates.forEach(c => {
+       const row = `<tr>
+         <td>${c.name}</td>
+         <td>${c.score}</td>
+          <td>${c.job}</td>
+       </tr>`;
+       interviewBody.innerHTML += row;
+     });
+
+     alert("Prompt berhasil dianalisis:\n\n" + prompt);
+   }
   </script>
 
 </body>
