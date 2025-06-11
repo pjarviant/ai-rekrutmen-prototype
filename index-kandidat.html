@@ -127,11 +127,11 @@
     .modal {
       background: white;
       width: 90%;
-      max-width: 650px;
+      max-width: 800px;
+      height: 80vh;
       border-radius: 6px;
       padding: 20px;
       position: relative;
-      height: 80vh;
       display: flex;
       flex-direction: column;
     }
@@ -183,76 +183,91 @@
 </head>
 <body>
 
-  <header>
-    <h1>Lintasarta AI Recruiter</h1>
-    <nav>
-      <a href="#">Beranda</a>
-      <a href="#">Tentang Kami</a>
-      <a href="#">Kontak</a>
-    </nav>
-  </header>
+<header>
+  <h1>Lintasarta AI Recruiter</h1>
+  <nav>
+    <a href="#">Beranda</a>
+    <a href="#">Tentang Kami</a>
+    <a href="#">Kontak</a>
+  </nav>
+</header>
 
-  <div class="content">
-    <div class="filters">
-      <input type="text" placeholder="Job title, skill, keyword">
-      <input type="text" placeholder="City, state, country">
-      <button>Search</button>
-    </div>
-
-    <div class="job-grid" id="jobList"></div>
+<div class="content">
+  <div class="filters">
+    <input type="text" placeholder="Job title, skill, keyword">
+    <input type="text" placeholder="City, state, country">
+    <button>Search</button>
   </div>
 
-  <!-- Modal -->
-  <div class="modal-backdrop" id="modalBackdrop">
-    <div class="modal">
-      <button class="close-btn" onclick="closeModal()">×</button>
-      <h2 id="modalTitle">Job Title</h2>
-      <div class="meta" id="modalMeta">Location • Date</div>
-      <iframe id="n8nForm" src="https://n8n.cloudeka.ai/form/0b2ad1e6-4867-4f4e-9eae-141b16266a2a"></iframe>
-    </div>
+  <div class="job-grid" id="jobList"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <h2 id="modalTitle">Job Title</h2>
+    <div class="meta" id="modalMeta">Location • Date</div>
+    <iframe id="n8nForm" src=""></iframe>
   </div>
+</div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <strong>Kenapa Harus Lintasarta?</strong>
-    <p>Lintasarta memberikan kesempatan bagi talenta terbaik untuk tumbuh dan berkembang bersama teknologi terdepan dan budaya kerja profesional.</p>
-  </div>
+<!-- Footer -->
+<div class="footer">
+  <strong>Kenapa Harus Lintasarta?</strong>
+  <p>Lintasarta memberikan kesempatan bagi talenta terbaik untuk tumbuh dan berkembang bersama teknologi terdepan dan budaya kerja profesional.</p>
+</div>
 
-  <script>
-    const jobs = [
-      { title: "SENIOR ACCOUNT EXECUTIVE – PROJECT BASED", meta: "Indonesia • Posting 04/05/2025" },
-      { title: "FULL STACK DEVELOPER – PROJECT BASED", meta: "Indonesia • Posting 04/02/2025" },
-      { title: "IT SUPPORT ANALYST", meta: "Indonesia • Posting 04/23/2025" },
-    ];
-
-    const jobList = document.getElementById('jobList');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalMeta = document.getElementById('modalMeta');
-
-    jobs.forEach((job, idx) => {
-      const div = document.createElement('div');
-      div.className = 'job-card';
-      div.innerHTML = `<div class="title">${job.title}</div><div class="meta">${job.meta}</div>`;
-      div.onclick = () => openModal(idx);
-      jobList.appendChild(div);
-    });
-
-    function openModal(index) {
-      const job = jobs[index];
-      modalTitle.textContent = job.title;
-      modalMeta.textContent = job.meta;
-      modalBackdrop.style.display = 'flex';
+<script>
+  const jobs = [
+    {
+      title: "SENIOR ACCOUNT EXECUTIVE – PROJECT BASED",
+      meta: "Indonesia • Posting 04/05/2025",
+      form: "https://n8n.cloudeka.ai/form/fbcca45f-efd3-4f31-9b0e-1ddb19705200"
+    },
+    {
+      title: "FULL STACK DEVELOPER – PROJECT BASED",
+      meta: "Indonesia • Posting 04/02/2025",
+      form: "https://n8n.cloudeka.ai/form/0b2ad1e6-4867-4f4e-9eae-141b16266a2a"
+    },
+    {
+      title: "IT SUPPORT ANALYST",
+      meta: "Indonesia • Posting 04/23/2025",
+      form: "https://n8n.cloudeka.ai/form/1224b9b0-05b1-4ed5-af9a-ccd7ff01eb6c"
     }
+  ];
 
-    function closeModal() {
-      modalBackdrop.style.display = 'none';
-    }
+  const jobList = document.getElementById('jobList');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMeta = document.getElementById('modalMeta');
+  const n8nForm = document.getElementById('n8nForm');
 
-    window.onclick = (e) => {
-      if (e.target === modalBackdrop) closeModal();
-    };
-  </script>
+  jobs.forEach((job, idx) => {
+    const div = document.createElement('div');
+    div.className = 'job-card';
+    div.innerHTML = `<div class="title">${job.title}</div><div class="meta">${job.meta}</div>`;
+    div.onclick = () => openModal(idx);
+    jobList.appendChild(div);
+  });
+
+  function openModal(index) {
+    const job = jobs[index];
+    modalTitle.textContent = job.title;
+    modalMeta.textContent = job.meta;
+    n8nForm.src = job.form;
+    modalBackdrop.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modalBackdrop.style.display = 'none';
+    n8nForm.src = ""; // Reset iframe on close
+  }
+
+  window.onclick = (e) => {
+    if (e.target === modalBackdrop) closeModal();
+  };
+</script>
 
 </body>
 </html>
