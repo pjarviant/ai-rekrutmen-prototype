@@ -187,7 +187,8 @@
     .iframe-container {
       position: relative;
       width: 100%;
-      padding-bottom: 150%; /* rasio tinggi 4:3, sesuaikan jika perlu */
+      max-width: 400px; /* sesuaikan lebar maksimum container */
+      aspect-ratio: 360 / 900; /* leb 360 : tinggi 900 (ubah sesuai form) */
       height: 0;
       overflow: hidden;
     }
